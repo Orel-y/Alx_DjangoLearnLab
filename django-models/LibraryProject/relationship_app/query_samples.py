@@ -14,4 +14,4 @@ library = Library.objects.get(name=library_name)
 print("Books in", library.name, ":", [book.title for book in library.books.all()])
 
 library = Library.objects.get(name="Central Library")
-print("Librarian of", library.name, ":", library.librarian.name)
+Librarian.objects.get(library=)
