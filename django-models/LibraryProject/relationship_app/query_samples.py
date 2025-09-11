@@ -7,7 +7,7 @@ django.setup()
 
 from relationship_app.models import Author, Book, Library, Librarian
 
-author = Author.objects.get(name="J.K. Rowling")
+author = Author.objects.get(name=author_name)
 print("Books by", author.name, ":", [book.title for book in author.books.all()])
 
 library = Library.objects.get(name=library_name)
