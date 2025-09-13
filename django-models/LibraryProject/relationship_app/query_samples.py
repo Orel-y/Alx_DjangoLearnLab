@@ -4,7 +4,7 @@ author = Author.objects.get(name=author_name)
 author.objects.filter(author=author)
 
 library = Library.objects.get(name=library_name)
-print("Books in", library.name, ":", [book.title for book in library.books.all()])
+print("Books in", [book.title for book in library.books.all()])
 
 Librarian.objects.get(library=)
 
