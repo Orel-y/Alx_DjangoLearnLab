@@ -41,3 +41,16 @@ class UserProfile(models.Model):
         return f"{self.user.username} - {self.role}"
 
 
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(Author,on_delete=models.CASCADE)
+    published_date = models.DateField(null=True, blank=True)
+    class Meta:
+        permissions = [
+            ("can_add_book", "Can add book"),
+            ("can_change_book", "Can change book"),
+            ("can_delete_book", "Can delete book"),
+        ]
+
+    def __str__(self):
+        return self.title
