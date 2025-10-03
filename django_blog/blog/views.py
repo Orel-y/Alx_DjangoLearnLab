@@ -14,7 +14,7 @@ def SignupView(request):
 
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registration/signup.html', {"form": form})
+    return render(request, 'blog/signup.html', {"form": form})
 
 
 def home(request):
