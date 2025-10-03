@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Signup{% endblock title %}
+
+{% block content %}
+    <fieldset>
+        <legend>Signup</legend>
+        <form method='post'>
+            {% csrf_token %} {{ form.as_p }}
+            <button type="submit">Signup</button>
+        </form>
+    </fieldset>
+{% endblock content %}
