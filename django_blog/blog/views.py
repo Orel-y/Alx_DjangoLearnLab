@@ -22,3 +22,6 @@ def home(request):
 
 def posts(request):
     return render(request, 'blog/posts.html')
+
+def profile(request):
+    return render(request, 'blog/profile.html')
