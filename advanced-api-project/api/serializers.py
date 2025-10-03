@@ -14,11 +14,11 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BookSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer()
+    author = AuthorSerializer(many=True, read_only=True)
 
     class Meta():
         model = Book
-        fields = '__all__'
+        fields = 'id', 'title', 'publication_year', 'author'
 
     """
         VALIDATING: validating the publication_year data
