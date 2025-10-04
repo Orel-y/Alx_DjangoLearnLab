@@ -3,11 +3,14 @@
 {% block title %}Signup{% endblock title %}
 
 {% block content %}
-    <fieldset>
-        <legend>Signup</legend>
-        <form method='post'>
-            {% csrf_token %} {{ form.as_p }}
-            <button type="submit">Signup</button>
-        </form>
-    </fieldset>
+    <div class="authbox">
+        <fieldset>
+            <legend>Signup</legend>
+            <form method='post'>
+                {% csrf_token %} {{ form.as_p }}
+                <button class="authbutton" type="submit">Sign-Up</button>
+            </form>
+        </fieldset>
+    </div>
+    
 {% endblock content %}
