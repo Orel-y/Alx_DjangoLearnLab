@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, PostForm
 from django.contrib import messages
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from .models import Post
@@ -46,7 +46,7 @@ class PostDetailView(DetailView):
 #------------------------------------------------------
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    form_class = PostForm
     template_name = "blog/post_form.html"
     success_url = reverse_lazy('posts')
 
@@ -57,7 +57,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 #------------------------------------------------------
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    form_class = PostForm
     template_name = "blog/post_form.html"
 
     def form_valid(self, form):
