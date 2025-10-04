@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from .models import Post
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.decorators import login_not_required
+from django.contrib.auth.decorators import login_required
 
 def SignupView(request):
     if request.method == "POST":
