@@ -1,5 +1,45 @@
 {% extends "blog/base.html" %}
+
 {% block title %}Home Page{% endblock title %}
+
 {% block content %}
-    <h1>Home Page</h1>
+    <section class="home-intro">
+        <h1>Welcome to DjangoBlog</h1>
+        <p class="tagline">A space where ideas, stories, and inspiration come alive.</p>
+        <a href="{% url 'posts' %}" class="createButton">Explore Posts</a>
+        <a href="{% url 'post-create' %}" class="createButton">Write Your First Post</a>
+    </section>
+
+    <section class="home-about">
+        <h2>About This Blog</h2>
+        <p>
+            DjangoBlog is a simple yet powerful blogging platform built with Django. 
+            It’s designed to help developers and writers share their thoughts with the world 
+            in a clean, elegant, and minimal way.
+        </p>
+    </section>
+
+    <section class="home-latest">
+        <h2>Latest Posts</h2>
+        <ul class="latest-posts">
+            {% for post in latest_posts %}
+                <li>
+                    <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+                    <span class="author">by {{ post.author.username }}</span>
+                    <p class="excerpt">{{ post.content|truncatewords:20 }}</p>
+                </li>
+            {% empty %}
+                <p>No posts yet. Be the first to share your thoughts!</p>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="home-join">
+        <h2>Join Our Community</h2>
+        <p>
+            Have something to say? Create an account and start writing your own stories today.
+        </p>
+        <a href="{% url 'register' %}" class="createButton">Sign Up</a>
+        <a href="{% url 'login' %}" class="backButton">Login</a>
+    </section>
 {% endblock content %}

@@ -3,9 +3,21 @@
 {% block title %} Profile Page {% endblock title %}
 
 {% block content %}
-    <h2>User Profile</h2>
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
+    {% if user.is_authenticated %}
+        <h2>User Profile</h2>
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+    {% else %}
+        <h2>Ooops You havn't sign in: </h2>
+        <p><a href="{% url 'login'%}">Login</a></p>
+    {% endif %}
+    
 
-    <a class="logoutButton" href="{% url 'logout' %}">Logout</a>
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method='post'>
+            {% csrf_token %}
+            <button type='submit'> Logout </button>
+        </form>
+    {% endif %}
 {% endblock content %}

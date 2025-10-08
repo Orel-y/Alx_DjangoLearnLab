@@ -7,13 +7,13 @@ from .views import (
     PostUpdateView, PostDeleteView, CommentCreateView,
     CommentDeleteView, CommentUpdateView
 )
-
+from django.urls import reverse_lazy
 
 
 urlpatterns = [
     path('register/', SignupView, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(next_page=reverse_lazy('home')), name='logout'),
     path('profile/', profile, name='profile'),
 
     path('', home, name='home'),
