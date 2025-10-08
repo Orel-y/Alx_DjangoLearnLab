@@ -7,5 +7,5 @@
     <p>Username: {{ user.username }}</p>
     <p>Email: {{ user.email }}</p>
 
-    <a href="{% url 'login' %}">Login</a>
+    <a class="logoutButton" href="{% url 'logout' %}">Logout</a>
 {% endblock content %}

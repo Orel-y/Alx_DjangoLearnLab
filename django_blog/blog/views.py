@@ -25,9 +25,6 @@ def SignupView(request):
 def home(request):
     return render(request, 'blog/home.html')
 
-def posts(request):
-    return render(request, 'blog/posts.html')
-
 def profile(request):
     return render(request, 'blog/profile.html')
 
