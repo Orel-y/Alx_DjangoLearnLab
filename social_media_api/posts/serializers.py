@@ -24,7 +24,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'author',
-            'author_username'
+            'author_username',
             'title',
             'content',
             'updated_at',
