@@ -31,7 +31,7 @@ class FollowingPage(APIView):
         follwoing_user = user.following.all()
 
         feed_users = list(follwoing_user) + [user]
-        posts = Post.objects.filter(author__in=follwoing_user).order_by('-created_at')
+        posts = Post.objects.filter(author__in=follwoing_user).order_by
 
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
