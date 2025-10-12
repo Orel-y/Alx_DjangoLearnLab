@@ -7,6 +7,7 @@ from rest_framework import permissions
 from .models import CustomUser
 from .serializers import CustomUserSerializer, LoginSerializer
 from django.shortcuts import get_object_or_404
+from rest_framework import generics
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -68,3 +69,6 @@ class UnfollowUserAPIView(APIView):
         target_user.followers.remove(current_user)
 
         return Response({"detail": f"You have unfollowed {target_user.username}."}, status=status.HTTP_200_OK)
+
+generics.GenericAPIView
+CustomUser.objects.all()
