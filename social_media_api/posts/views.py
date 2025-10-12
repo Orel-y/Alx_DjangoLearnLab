@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from posts.models import Post, Comment
 from posts.serializers import PostSerializer, CommentSerializer
@@ -9,7 +8,33 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import CustomUser
 from django.shortcuts import get_object_or_404
 
-class PostListCreateView(APIView):
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all().order_by('-created_at')
+    serializer_class = PostSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all().order_by('-created_at')
+    serializer_class = CommentSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+class FollowingPage(APIView):
+    def get(self, request):
+        user = request.user
+        follwoing_user = user.following.all()
+
+        feed_users = list(follwoing_user) + [user]
+        posts = Post.objects.filter(author__in=feed_users).select_related('author').order_by('-created_at')
+
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+"""class PostListCreateView(APIView):
     permission_classes = [AllowAny]
     
     def get(self, request):
@@ -42,18 +67,4 @@ class PostDetailView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-"""class PostViewSet(viewsets.ModelViewSet):
-    qs = Post.objects.all().order_by('-created_at')
-    serializer_class = PostSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)"""
-
-class CommentViewSet(viewsets.ModelViewSet):
-    qs = Comment.objects.all().order_by('-created_at')
-    serializer_class = CommentSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)"""
