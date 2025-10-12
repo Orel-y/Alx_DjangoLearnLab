@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import CustomUser
 from django.shortcuts import get_object_or_404
+from rest_framework import permissions
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -24,13 +25,13 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 class FollowingPage(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         user = request.user
         follwoing_user = user.following.all()
 
         feed_users = list(follwoing_user) + [user]
-        posts = Post.objects.filter(author__in=follwoing_user).select_related('author').order_by('-created_at')
+        posts = Post.objects.filter(author__in=follwoing_user).order_by('-created_at')
 
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
