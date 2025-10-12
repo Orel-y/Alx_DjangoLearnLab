@@ -24,12 +24,13 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 class FollowingPage(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         user = request.user
         follwoing_user = user.following.all()
 
         feed_users = list(follwoing_user) + [user]
-        posts = Post.objects.filter(author__in=feed_users).select_related('author').order_by('-created_at')
+        posts = Post.objects.filter(author__in=follwoing_user).select_related('author').order_by('-created_at')
 
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
