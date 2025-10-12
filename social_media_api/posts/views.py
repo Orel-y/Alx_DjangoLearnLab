@@ -28,10 +28,10 @@ class FollowingPage(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         user = request.user
-        follwoing_users = user.following.all()
+        following_users = user.following.all()
 
-        feed_users = list(follwoing_users) + [user]
-        posts = Post.objects.filter(author__in=follwoing_users).order_by
+        feed_users = list(following_users) + [user]
+        posts = Post.objects.filter(author__in=following_users).order_by
 
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
